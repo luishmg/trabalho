@@ -58,3 +58,24 @@ $ knife node run_list add apache-server 'recipe[apachevh::default]'
 $ knife node run_list add apache-server 'recipe[ctoaccess::default]'
 
 $ knife ssh 'name:apache-server' 'sudo chef-client' -x chef
+
+## Informações para o acesso do CTO
+usuário: ctouser
+
+senha: tbfiap@2019
+
+port: 2022
+
+## Endereços dos servidores
+mbafiap.dev.com.br
+
+mbafiap.qa.com.br
+
+mbafiap.prod.com.br
+
+### Colocar no /etc/hosts para testar
++apache server ip+ mbafiap.dev.com.br 
+
++apache server ip+ mbafiap.qa.com.br 
+
++apache server ip+ mbafiap.prod.com.br 
