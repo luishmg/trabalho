@@ -27,7 +27,7 @@ $ sudo chef-server-ctl org-create llabs 'Luis Labs' --association_user lgomes --
 
 ## Utilize o chef-server ou workstation
 ### Configurando workstation
-$ git clone https://github.com/luishmg/17cld-trabalho.git 
+$ git clone https://github.com/luishmg/trabalho.git 
 
 $ cd 17cld-trabalho
 
