@@ -29,7 +29,7 @@ $ sudo chef-server-ctl org-create llabs 'Luis Labs' --association_user lgomes --
 ### Configurando workstation
 $ git clone https://github.com/luishmg/trabalho.git 
 
-$ cd 17cld-trabalho
+$ cd trabalho
 
 $ ruby configureWorkstation.rb
 
