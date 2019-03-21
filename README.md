@@ -63,6 +63,8 @@ $ knife node run_list add apache-server 'recipe[ctoaccess::default]'
 
 $ knife ssh 'name:apache-server' 'sudo chef-client' -x chef
 
+Nesse passo será pedida a senha: tbfiap@2019
+
 ## Informações para o acesso do CTO
 usuário: ctouser
 
