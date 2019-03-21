@@ -9,11 +9,11 @@ $ sudo useradd -m -d /home/chef -c 'Chef User' -G sudo chef
 
 $ echo 'chef:tbfiap@2019' | sudo chpasswd
 
-$ sudo visudo 
+$ sudo vim /etc/sudoers.d/chef
 
 adicione a linha abaixo dentro do arquivo
 
-chef ALL:(ALL) NOPASSWD:ALL
+chef ALL=(ALL) NOPASSWD:ALL
 
 $ sudo systemctl restart sshd
 
