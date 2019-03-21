@@ -37,7 +37,7 @@ $ sudo apt-get install -y ruby
 
 $ ruby configureWorkstation.rb
 
-$ $(cd ~/chef-repo && knife configure -k ~/.chef/lgomes.pem -u lgomes -s "https://#{serverIP}/organizations/llabs")
+$ $(cd ~/chef-repo && knife configure -k ~/.chef/lgomes.pem -u lgomes -s "https://+chef server ip+/organizations/llabs")
 
 $ eval "$(chef shell-init bash)"
 
