@@ -19,7 +19,7 @@ $ sudo systemctl restart sshd
 
 ## Acesse o chef-server
 ### Criando um novo usuário e uma nova organização
-$ mkdir /opt/chefkeys
+$ sudo mkdir /opt/chefkeys
 
 $ sudo chef-server-ctl user-create lgomes Luis Gomes luis.miyasiro.gomes@gmail.com 'tbfiap2019' --filename /opt/chefkeys/lgomes.pem
 
