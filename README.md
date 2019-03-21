@@ -54,11 +54,9 @@ $ knife upload cookbooks/ctoaccess
 $ knife data bag create users && knife data bag from file users ctouser.json
 
 ### Instalando o chef-client via knife bootstrap
-$ knife bootstrap +apache server IP+:22 -x chef -P tbfiap@2019 -N apache-server
-
-### Adicionando cookbooks ao runlist do host
 $ knife bootstrap +apache server IP+:22 -x chef -P tbfiap@2019 -N apache-server --sudo
 
+### Adicionando cookbooks ao runlist do host
 $ knife node run_list add apache-server 'recipe[apachevh::default]'
 
 $ knife node run_list add apache-server 'recipe[ctoaccess::default]'
