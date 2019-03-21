@@ -59,7 +59,12 @@ puts "Enter chef-server ip: "
 serverIP = gets.chomp
 verifyInput(serverUser,"Invalid entry null or invalid input",nil)
 
-`scp #{serverUser}@#{serverIP}:/opt/chefkeys/lgomes.pem ~/.chef/lgomes.pem` 
+`ip a | grep #{serverIP}`
+if $?.exitstatus == 0 then
+  `cp /opt/chefkeys/lgomes.pem ~/.chef/lgomes.pem`
+else
+  `scp #{serverUser}@#{serverIP}:/opt/chefkeys/lgomes.pem ~/.chef/lgomes.pem` 
+end
 `$(cd ~/chef-repo && knife configure -k ~/.chef/lgomes.pem -u lgomes -s "https://#{serverIP}/organizations/llabs")`
 `echo 'cookbook_path ["~/chef-repo/cookbooks"]' >> ~/.chef/knife.rb`
 `cp -r cookbooks/* ~/chef-repo/cookbooks/`
