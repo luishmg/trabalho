@@ -32,6 +32,6 @@ environments.each do |env|
 end
 
 service 'apache2' do
-  action [:enable, :start]
+  action [:enable, :restart]
   supports :reload => true
 end
