@@ -50,6 +50,7 @@ end
 error?(installed,"Error ocurred while installing chefdk")
 `chef shell-init bash`
 `chef generate repo ~/chef-repo`
+`mkdir ~/.chef`
 
 # Get chef server info
 puts "Enter chef-server user: "
