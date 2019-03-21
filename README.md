@@ -31,6 +31,9 @@ $ git clone https://github.com/luishmg/trabalho.git
 
 $ cd trabalho
 
+$ sudo apt-get update
+$ sudo apt-get install -y ruby
+
 $ ruby configureWorkstation.rb
 
 $ eval "$(chef shell-init bash)"
