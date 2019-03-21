@@ -65,7 +65,6 @@ if $?.exitstatus == 0 then
 else
   `scp #{serverUser}@#{serverIP}:/opt/chefkeys/lgomes.pem ~/.chef/lgomes.pem` 
 end
-`$(cd ~/chef-repo && knife configure -k ~/.chef/lgomes.pem -u lgomes -s "https://#{serverIP}/organizations/llabs")`
-`echo 'cookbook_path ["~/chef-repo/cookbooks"]' >> ~/.chef/knife.rb`
+`echo 'cookbook_path ["~/chef-repo/cookbooks"]' > ~/.chef/knife.rb`
 `cp -r cookbooks/* ~/chef-repo/cookbooks/`
 `cp -r data_bags ~/chef-repo/`
