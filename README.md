@@ -99,8 +99,8 @@ Você tem de digitar o comando a seguir e preencher o arquivo com a informação
 
     $ sudo vim /etc/hosts
 
-+ip do servidor apache+ mbafiap.dev.com.br 
++ip do servidor chef client+ mbafiap.dev.com.br 
 
-+ip do servidor apache+ mbafiap.qa.com.br 
++ip do servidor chef client+ mbafiap.qa.com.br 
 
-+ip do servidor apache+ mbafiap.prod.com.br 
++ip do servidor chef client+ mbafiap.prod.com.br 
