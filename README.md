@@ -4,68 +4,73 @@ link do github: https://github.com/luishmg/trabalho
 
 ## Acesse o servidor apache-server
 ### Configurando o Servidor Apache
-$ ssh +usuario+@+apache server IP+
+Digite os comandos abaixo para criar um usuário que possa utilizar o sudo sem precisar digitar a senha
 
-$ sudo useradd -m -d /home/chef -c 'Chef User' -G sudo chef
+Comando para conectar no servidor cliente caso já não esteja conectado no mesmo
 
-$ echo 'chef:tbfiap@2019' | sudo chpasswd
+    $ ssh +usuario+@+apache server IP+
 
-$ sudo vim /etc/sudoers.d/chef
+Essa sequencia de comandos serve para criar o usuário chef configurar uma senha para
+mesmo e configurar o mesmo no sudoers
 
-adicione a linha abaixo dentro do arquivo
+    $ sudo useradd -m -d /home/chef -c 'Chef User' -G sudo chef
+    $ echo 'chef:tbfiap@2019' | sudo chpasswd
+    $ sudo vim /etc/sudoers.d/chef
+
+Adicione a linha abaixo dentro do arquivo:
 
 chef ALL=(ALL) NOPASSWD:ALL
 
-$ sudo systemctl restart sshd
+    $ sudo systemctl restart sshd
 
 ## Acesse o chef-server
 ### Criando um novo usuário e uma nova organização
 obs:. Pule essa etapa caso já tenha um usuário e uma organização
 
-$ sudo mkdir /opt/chefkeys
+Os comandos abaixo servem para criar um diretório comum para armazenar as chaves do chef,
+criar o usuário e criar uma organização no chef server
 
-$ sudo chef-server-ctl user-create lgomes Luis Gomes luis.miyasiro.gomes@gmail.com 'tbfiap2019' --filename /opt/chefkeys/lgomes.pem
-
-$ sudo chef-server-ctl org-create llabs 'Luis Labs' --association_user lgomes --filename /opt/chefkeys/llabs.pem
+    $ sudo mkdir /opt/chefkeys
+    $ sudo chef-server-ctl user-create lgomes Luis Gomes luis.miyasiro.gomes@gmail.com 'tbfiap2019' --filename /opt/chefkeys/lgomes.pem
+    $ sudo chef-server-ctl org-create llabs 'Luis Labs' --association_user lgomes --filename /opt/chefkeys/llabs.pem
 
 ### Configurando o chefdk e preparando os cookbooks
-$ git clone https://github.com/luishmg/trabalho.git 
 
-$ cd trabalho
+Os comandos servem para clonar os arquivos do github, instalar
+o python e copiar a chave para dentro do diretório .chef
 
-$ sudo apt-get update
-
-$ sudo apt-get install -y ruby
-
-$ ruby configureWorkstation.rb
-
-$ cp +Chave do seu usuário chef+.pem ~/.chef/
-
-$ $(cd ~/chef-repo && knife configure -k ~/.chef/+Chave do seu usuário chef+.pem -u +usúario do chef+ -s "https://+chef server ip+/organizations/+nome da organização+")
-
-$ eval "$(chef shell-init bash)"
-
-$ echo -E 'eval "$(chef shell-init bash)"' >> ~/.bash_profile
-
-$ knife ssl fetch
-
-$ cd ~/chef-repo 
-
-$ knife upload cookbooks/apachevh
-
-$ knife upload cookbooks/ctoaccess
-
-$ knife data bag create users && knife data bag from file users ctouser.json
+    $ git clone https://github.com/luishmg/trabalho.git 
+    $ cd trabalho
+    $ sudo apt-get update
+    $ sudo apt-get install -y ruby
+    $ ruby configureWorkstation.rb
+    $ cp +Chave do seu usuário chef+.pem ~/.chef/
+    $ $(cd ~/chef-repo && knife configure -k ~/.chef/+Chave do seu usuário chef+.pem -u +usúario do chef+ -s "https://+chef server ip+/organizations/+nome da organização+")
+    $ eval "$(chef shell-init bash)"
+    $ echo -E 'eval "$(chef shell-init bash)"' >> ~/.bash_profile
+    $ knife ssl fetch
+    $ cd ~/chef-repo 
+    $ knife upload cookbooks/apachevh
+    $ knife upload cookbooks/ctoaccess
+    $ knife data bag create users && knife data bag from file users ctouser.json
 
 ### Instalando o chef-client via knife bootstrap
-$ knife bootstrap +apache server IP+:22 -x chef -P tbfiap@2019 -N apache-server --sudo
+
+    $ knife bootstrap +apache server IP+:22 -x chef -P tbfiap@2019 -N apache-server --sudo
 
 ### Adicionando cookbooks ao runlist do host
-$ knife node run_list add apache-server 'recipe[apachevh::default]'
 
-$ knife node run_list add apache-server 'recipe[ctoaccess::default]'
+Esse comando faz com que a receita apachevh seja executada no apache-server
 
-$ knife ssh 'name:apache-server' 'sudo chef-client' -x chef -P tbfiap@2019
+    $ knife node run_list add apache-server 'recipe[apachevh::default]'
+
+Esse comando faz com que a receita ctoaccess seja executada no apache-server
+
+    $ knife node run_list add apache-server 'recipe[ctoaccess::default]'
+
+Esse comando utiliza o knife para acessar a máquina apache-server remotamente e executa o chef-client
+
+    $ knife ssh 'name:apache-server' 'sudo chef-client' -x chef -P tbfiap@2019
 
 ## Informações para o acesso do CTO
 usuário: ctouser
@@ -82,6 +87,10 @@ mbafiap.qa.com.br
 mbafiap.prod.com.br
 
 ### Colocar no /etc/hosts para testar
+Você tem de digitar o comando a seguir e preencher o arquivo com a informação abaixo
+
+    $ sudo vim /etc/hosts
+
 +apache server ip+ mbafiap.dev.com.br 
 
 +apache server ip+ mbafiap.qa.com.br 
