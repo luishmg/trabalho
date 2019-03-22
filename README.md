@@ -56,7 +56,6 @@ dentro do templade e instala o chefdk caso o mesmo não esteja instalado
     $ eval "$(chef shell-init bash)"
     $ echo -E 'eval "$(chef shell-init bash)"' >> ~/.bash_profile
     $ knife ssl fetch
-    $ cd ~/chef-repo 
     $ knife upload cookbooks/apachevh
     $ knife upload cookbooks/ctoaccess
     $ knife data bag create users && knife data bag from file users ctouser.json
