@@ -51,6 +51,5 @@ error?(installed,"Error ocurred while installing chefdk")
 `chef shell-init bash`
 `chef generate repo ~/chef-repo`
 `mkdir ~/.chef 2> /dev/null`
-`echo 'cookbook_path ["~/chef-repo/cookbooks"]' > ~/.chef/knife.rb`
 `cp -r cookbooks/* ~/chef-repo/cookbooks/`
 `cp -r data_bags ~/chef-repo/`

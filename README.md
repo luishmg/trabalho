@@ -43,9 +43,16 @@ o python e copiar a chave para dentro do diretório .chef
     $ cd trabalho
     $ sudo apt-get update
     $ sudo apt-get install -y ruby
+
+Agora vamos roda um script em ruby que gera um template padrão 
+para trabalhar com o chefdk, coloca os arquivos dos cookbooks
+dentro do templade e instala o chefdk caso o mesmo não esteja instalado
+
     $ ruby configureWorkstation.rb
     $ cp +Chave do seu usuário chef+.pem ~/.chef/
-    $ $(cd ~/chef-repo && knife configure -k ~/.chef/+Chave do seu usuário chef+.pem -u +usúario do chef+ -s "https://+chef server ip+/organizations/+nome da organização+")
+    $ cd ~/chef-repo 
+    $ knife configure -k ~/.chef/+Chave do seu usuário chef+.pem -u +usúario do chef+ -s "https://+chef server ip+/organizations/+nome da organização+"
+    $ echo 'cookbook_path ["~/chef-repo/cookbooks"]' >> ~/.chef/knife.rb
     $ eval "$(chef shell-init bash)"
     $ echo -E 'eval "$(chef shell-init bash)"' >> ~/.bash_profile
     $ knife ssl fetch
