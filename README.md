@@ -2,13 +2,13 @@
 Obs:. Comentários preenchidos dentro de ++ devem ser completados de acordo com o seu ambiente
 link do github: https://github.com/luishmg/trabalho
 
-## Acesse o servidor apache-server
-### Configurando o Servidor Apache
+## Acesse o servidor chef client
+### Configurando o servidor chef client 
 Digite os comandos abaixo para criar um usuário que possa utilizar o sudo sem precisar digitar a senha
 
 Comando para conectar no servidor cliente caso já não esteja conectado no mesmo
 
-    $ ssh +usuario+@+ip do servidor apache+
+    $ ssh +usuario+@+ip do servidor chef client+
 
 Essa sequencia de comandos serve para criar o usuário chef configurar uma senha para
 mesmo e configurar o mesmo no sudoers
@@ -46,7 +46,8 @@ o python e copiar a chave para dentro do diretório .chef
 
 Agora vamos roda um script em ruby que gera um template padrão 
 para trabalhar com o chefdk, coloca os arquivos dos cookbooks
-dentro do templade e instala o chefdk caso o mesmo não esteja instalado
+dentro do templade e instala o chefdk caso o mesmo não esteja instalado, 
+mesmo pode demorar um pouco para terminar a execução
 
     $ ruby configureWorkstation.rb
     $ cp +Chave do seu usuário chef+.pem ~/.chef/
@@ -62,7 +63,7 @@ dentro do templade e instala o chefdk caso o mesmo não esteja instalado
 
 ### Instalando o chef-client via knife bootstrap
 
-    $ knife bootstrap +ip do servidor apache+:22 -x chef -P tbfiap@2019 -N apache-server --sudo
+    $ knife bootstrap +ip do servidor chef client+:22 -x chef -P tbfiap@2019 -N apache-server --sudo
 
 ### Adicionando cookbooks ao runlist do host
 
@@ -76,7 +77,7 @@ Esse comando faz com que a receita ctoaccess seja executada no apache-server
 
 Digite os comando a seguir para logar no apache server e rodar o chefclient
 
-    $ ssh chef@+ip do servidor apache+
+    $ ssh chef@+ip do servidor chef client+
     $ sudo chef-client
 
 ## Informações para o acesso do CTO
