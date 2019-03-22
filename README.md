@@ -8,7 +8,7 @@ Digite os comandos abaixo para criar um usuário que possa utilizar o sudo sem p
 
 Comando para conectar no servidor cliente caso já não esteja conectado no mesmo
 
-    $ ssh +usuario+@+apache server IP+
+    $ ssh +usuario+@+ip do servidor apache+
 
 Essa sequencia de comandos serve para criar o usuário chef configurar uma senha para
 mesmo e configurar o mesmo no sudoers
@@ -50,8 +50,8 @@ dentro do templade e instala o chefdk caso o mesmo não esteja instalado
 
     $ ruby configureWorkstation.rb
     $ cp +Chave do seu usuário chef+.pem ~/.chef/
-    $ cd ~/chef-repo 
-    $ knife configure -k ~/.chef/+Chave do seu usuário chef+.pem -u +usúario do chef+ -s "https://+chef server ip+/organizations/+nome da organização+"
+    $ cd ~/chef-repo
+    $ knife configure -k ~/.chef/+chave do usuário chef+.pem -u +usuário chef+ --validation-client-name +usuário chef+ --validation-key ~/.chef/+chave do usuário chef+.pem -s "https://+ip do chef server+/organizations/+sigla da ornaização+" -r ~/chef-repo
     $ echo 'cookbook_path ["~/chef-repo/cookbooks"]' >> ~/.chef/knife.rb
     $ eval "$(chef shell-init bash)"
     $ echo -E 'eval "$(chef shell-init bash)"' >> ~/.bash_profile
@@ -63,7 +63,7 @@ dentro do templade e instala o chefdk caso o mesmo não esteja instalado
 
 ### Instalando o chef-client via knife bootstrap
 
-    $ knife bootstrap +apache server IP+:22 -x chef -P tbfiap@2019 -N apache-server --sudo
+    $ knife bootstrap +ip do servidor apache+:22 -x chef -P tbfiap@2019 -N apache-server --sudo
 
 ### Adicionando cookbooks ao runlist do host
 
@@ -75,9 +75,10 @@ Esse comando faz com que a receita ctoaccess seja executada no apache-server
 
     $ knife node run_list add apache-server 'recipe[ctoaccess::default]'
 
-Esse comando utiliza o knife para acessar a máquina apache-server remotamente e executa o chef-client
+Digite os comando a seguir para logar no apache server e rodar o chefclient
 
-    $ knife ssh 'name:apache-server' 'sudo chef-client' -x chef -P tbfiap@2019
+    $ ssh chef@+ip do servidor apache+
+    $ sudo chef-client
 
 ## Informações para o acesso do CTO
 usuário: ctouser
@@ -98,8 +99,8 @@ Você tem de digitar o comando a seguir e preencher o arquivo com a informação
 
     $ sudo vim /etc/hosts
 
-+apache server ip+ mbafiap.dev.com.br 
++ip do servidor apache+ mbafiap.dev.com.br 
 
-+apache server ip+ mbafiap.qa.com.br 
++ip do servidor apache+ mbafiap.qa.com.br 
 
-+apache server ip+ mbafiap.prod.com.br 
++ip do servidor apache+ mbafiap.prod.com.br 
