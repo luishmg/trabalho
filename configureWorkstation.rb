@@ -50,22 +50,7 @@ end
 error?(installed,"Error ocurred while installing chefdk")
 `chef shell-init bash`
 `chef generate repo ~/chef-repo`
-`mkdir ~/.chef`
-
-# Get chef server info
-puts "Enter chef-server user: "
-serverUser = gets.chomp
-verifyInput(serverUser,"Invalid entry null or invalid input",nil)
-puts "Enter chef-server ip: "
-serverIP = gets.chomp
-verifyInput(serverUser,"Invalid entry null or invalid input",nil)
-
-`ip a | grep #{serverIP}`
-if $?.exitstatus == 0 then
-  `cp /opt/chefkeys/lgomes.pem ~/.chef/lgomes.pem`
-else
-  `scp #{serverUser}@#{serverIP}:/opt/chefkeys/lgomes.pem ~/.chef/lgomes.pem` 
-end
+`mkdir ~/.chef 2> /dev/null`
 `echo 'cookbook_path ["~/chef-repo/cookbooks"]' > ~/.chef/knife.rb`
 `cp -r cookbooks/* ~/chef-repo/cookbooks/`
 `cp -r data_bags ~/chef-repo/`

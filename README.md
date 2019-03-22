@@ -1,5 +1,6 @@
 # Trabalho 17CLD
 Obs:. Comentários preenchidos dentro de ++ devem ser completados de acordo com o seu ambiente
+link do github: https://github.com/luishmg/trabalho
 
 ## Acesse o servidor apache-server
 ### Configurando o Servidor Apache
@@ -19,14 +20,15 @@ $ sudo systemctl restart sshd
 
 ## Acesse o chef-server
 ### Criando um novo usuário e uma nova organização
+obs:. Pule essa etapa caso já tenha um usuário e uma organização
+
 $ sudo mkdir /opt/chefkeys
 
 $ sudo chef-server-ctl user-create lgomes Luis Gomes luis.miyasiro.gomes@gmail.com 'tbfiap2019' --filename /opt/chefkeys/lgomes.pem
 
 $ sudo chef-server-ctl org-create llabs 'Luis Labs' --association_user lgomes --filename /opt/chefkeys/llabs.pem
 
-## Utilize o chef-server ou workstation
-### Configurando workstation
+### Configurando o chefdk e preparando os cookbooks
 $ git clone https://github.com/luishmg/trabalho.git 
 
 $ cd trabalho
@@ -37,7 +39,9 @@ $ sudo apt-get install -y ruby
 
 $ ruby configureWorkstation.rb
 
-$ $(cd ~/chef-repo && knife configure -k ~/.chef/lgomes.pem -u lgomes -s "https://+chef server ip+/organizations/llabs")
+$ cp +Chave do seu usuário chef+.pem ~/.chef/
+
+$ $(cd ~/chef-repo && knife configure -k ~/.chef/+Chave do seu usuário chef+.pem -u +usúario do chef+ -s "https://+chef server ip+/organizations/+nome da organização+")
 
 $ eval "$(chef shell-init bash)"
 
