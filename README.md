@@ -1,14 +1,21 @@
 # Trabalho 17CLD
-Obs:. Comentários preenchidos dentro de ++ devem ser completados de acordo com o seu ambiente
+Obs:. As palavras em vermelho nos códigos devem ser substituidas pelos
+valores correspondentes ao seu ambiente
+
 link do github: https://github.com/luishmg/trabalho
+
+Irei considerar nessa doc os ip's <scan style="color:red">**10.0.2.4**</scan> para o chef server
+e <scan style="color:red">**10.0.2.5**</scan> para o chef client, caso o seu seja diferente substitua
+de forma correspondente.
 
 ## Acesse o servidor chef client
 ### Configurando o servidor chef client 
 Digite os comandos abaixo para criar um usuário que possa utilizar o sudo sem precisar digitar a senha
 
-Comando para conectar no servidor cliente caso já não esteja conectado no mesmo
+Comando para conectar no servidor cliente caso já não esteja conectado no mesmo, estaremos considerando
+o usuário <scan style="color:red">**chef-admin**</scan>
 
-    $ ssh +usuario+@+ip do servidor chef client+
+    $ ssh <scan style="color:red">**chef-admin**</scan>@<scan style="color:red">**10.0.2.4**</scan>
 
 Essa sequencia de comandos serve para criar o usuário chef configurar uma senha para
 mesmo e configurar o mesmo no sudoers
