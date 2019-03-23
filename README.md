@@ -1,11 +1,10 @@
 # Trabalho 17CLD
-Obs:. As palavras em vermelho nos códigos devem ser substituidas pelos
 valores correspondentes ao seu ambiente
 
 link do github: https://github.com/luishmg/trabalho
 
-Irei considerar nessa doc os ip's <scan style="color:red">**10.0.2.4**</scan> para o chef server
-e <scan style="color:red">**10.0.2.5**</scan> para o chef client, caso o seu seja diferente substitua
+Irei considerar nessa doc os ip's **10.0.2.4** para o chef server
+e **10.0.2.5** para o chef client, caso o seu seja diferente substitua
 de forma correspondente.
 
 ## Acesse o servidor chef client
@@ -13,9 +12,10 @@ de forma correspondente.
 Digite os comandos abaixo para criar um usuário que possa utilizar o sudo sem precisar digitar a senha
 
 Comando para conectar no servidor cliente caso já não esteja conectado no mesmo, estaremos considerando
-o usuário <scan style="color:red">**chef-admin**</scan>
+o usuário **chef-admin**, caso no seu ambiente seja diferente mude para o correspondente e mude o ip caso
+o mesmo também não seja o correspondente.
 
-    $ ssh <scan style="color:red">**chef-admin**</scan>@<scan style="color:red">**10.0.2.4**</scan>
+    $ ssh chef-admin@10.0.2.5
 
 Essa sequencia de comandos serve para criar o usuário chef configurar uma senha para
 mesmo e configurar o mesmo no sudoers
@@ -37,11 +37,12 @@ obs:. Pule essa etapa caso já tenha um usuário e uma organização
 Os comandos abaixo servem para criar um diretório comum para armazenar as chaves do chef,
 criar o usuário e criar uma organização no chef server
 
-    $ sudo mkdir /opt/chefkeys
-    $ sudo chef-server-ctl user-create lgomes Luis Gomes luis.miyasiro.gomes@gmail.com 'tbfiap2019' --filename /opt/chefkeys/lgomes.pem
+    $ sudo chef-server-ctl user-create lgomes Luis Gomes luis.miyasiro.gomes@gmail.com 'tbfiap2019' --filename ~/lgomes.pem
     $ sudo chef-server-ctl org-create llabs 'Luis Labs' --association_user lgomes --filename /opt/chefkeys/llabs.pem
 
 ### Configurando o chefdk e preparando os cookbooks
+obs:. caso tenha pulado o passo anterior mudar os campos lgomes pelo seu usuário lgomes.pem
+pela sua chave e llabs pela organização que você criou.
 
 Os comandos servem para clonar os arquivos do github, instalar
 o python e copiar a chave para dentro do diretório .chef
@@ -57,9 +58,9 @@ dentro do templade e instala o chefdk caso o mesmo não esteja instalado,
 mesmo pode demorar um pouco para terminar a execução
 
     $ ruby configureWorkstation.rb
-    $ cp +Chave do seu usuário chef+.pem ~/.chef/
+    $ cp ~/lgomes.pem ~/.chef/
     $ cd ~/chef-repo
-    $ knife configure -k ~/.chef/+chave do usuário chef+.pem -u +usuário chef+ --validation-client-name +usuário chef+ --validation-key ~/.chef/+chave do usuário chef+.pem -s "https://+ip do chef server+/organizations/+sigla da ornaização+" -r ~/chef-repo
+    $ knife configure -k ~/.chef/lgomes.pem -u lgomes --validation-client-name lgomes --validation-key ~/.chef/lgomes.pem -s "https://10.0.2.4/organizations/llabs" -r ~/chef-repo
     $ echo 'cookbook_path ["~/chef-repo/cookbooks"]' >> ~/.chef/knife.rb
     $ eval "$(chef shell-init bash)"
     $ echo -E 'eval "$(chef shell-init bash)"' >> ~/.bash_profile
@@ -70,7 +71,7 @@ mesmo pode demorar um pouco para terminar a execução
 
 ### Instalando o chef-client via knife bootstrap
 
-    $ knife bootstrap +ip do servidor chef client+:22 -x chef -P tbfiap@2019 -N apache-server --sudo
+    $ knife bootstrap 10.0.2.5:22 -x chef -P tbfiap@2019 -N apache-server --sudo
 
 ### Adicionando cookbooks ao runlist do host
 
@@ -84,7 +85,7 @@ Esse comando faz com que a receita ctoaccess seja executada no apache-server
 
 Digite os comando a seguir para logar no apache server e rodar o chefclient
 
-    $ ssh chef@+ip do servidor chef client+
+    $ ssh chef@10.0.2.5
     $ sudo chef-client
 
 ## Informações para o acesso do CTO
@@ -106,8 +107,8 @@ Você tem de digitar o comando a seguir e preencher o arquivo com a informação
 
     $ sudo vim /etc/hosts
 
-+ip do servidor chef client+ mbafiap.dev.com.br 
+10.0.2.5 mbafiap.dev.com.br 
 
-+ip do servidor chef client+ mbafiap.qa.com.br 
+10.0.2.5 mbafiap.qa.com.br 
 
-+ip do servidor chef client+ mbafiap.prod.com.br 
+10.0.2.5 mbafiap.prod.com.br 
