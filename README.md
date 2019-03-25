@@ -1,10 +1,10 @@
 # Trabalho 17CLD
-valores correspondentes ao seu ambiente
+Valores correspondentes ao seu ambiente
 
 link do github: https://github.com/luishmg/trabalho
 
-Irei considerar nessa doc os ip's **10.0.2.4** para o chef server
-e **10.0.2.5** para o chef client, caso o seu seja diferente substitua
+Irei considerar nesse guia os IP's **10.0.2.4** para o chef server
+e **10.0.2.5** para o chef client, caso o seu ambiente seja diferente substitua
 de forma correspondente.
 
 ## Acesse o servidor chef client
@@ -17,7 +17,7 @@ o mesmo também não seja o correspondente.
 
     $ ssh chef-admin@10.0.2.5
 
-Essa sequencia de comandos serve para criar o usuário chef configurar uma senha para
+Essa sequência de comandos serve para criar o usuário chef, configurar uma senha para o
 mesmo e configurar o mesmo no sudoers
 
     $ sudo useradd -m -d /home/chef -c 'Chef User' -G sudo chef
@@ -32,7 +32,7 @@ chef ALL=(ALL) NOPASSWD:ALL
 
 ## Acesse o chef-server
 ### Criando um novo usuário e uma nova organização
-obs:. Pule essa etapa caso já tenha um usuário e uma organização
+obs.: Pule essa etapa caso já tenha um usuário e uma organização
 
 Os comandos abaixo servem para criar um diretório comum para armazenar as chaves do chef,
 criar o usuário e criar uma organização no chef server
@@ -41,11 +41,11 @@ criar o usuário e criar uma organização no chef server
     $ sudo chef-server-ctl org-create llabs 'Luis Labs' --association_user lgomes --filename /opt/chefkeys/llabs.pem
 
 ### Configurando o chefdk e preparando os cookbooks
-obs:. caso tenha pulado o passo anterior mudar os campos lgomes pelo seu usuário lgomes.pem
+obs.: caso tenha pulado o passo anterior mudar os campos lgomes pelo seu usuário, lgomes.pem
 pela sua chave e llabs pela organização que você criou.
 
 Os comandos servem para clonar os arquivos do github, instalar
-o python e copiar a chave para dentro do diretório .chef
+o Ruby e copiar a chave para dentro do diretório .chef
 
     $ git clone https://github.com/luishmg/trabalho.git 
     $ cd trabalho
@@ -54,8 +54,8 @@ o python e copiar a chave para dentro do diretório .chef
 
 Agora vamos roda um script em ruby que gera um template padrão 
 para trabalhar com o chefdk, coloca os arquivos dos cookbooks
-dentro do templade e instala o chefdk caso o mesmo não esteja instalado, 
-mesmo pode demorar um pouco para terminar a execução
+dentro do template e instala o chefdk caso o mesmo não esteja instalado, 
+o script pode demorar um pouco para terminar a execução
 
     $ ruby configureWorkstation.rb
     $ cp ~/lgomes.pem ~/.chef/
@@ -83,7 +83,7 @@ Esse comando faz com que a receita ctoaccess seja executada no apache-server
 
     $ knife node run_list add apache-server 'recipe[ctoaccess::default]'
 
-Digite os comando a seguir para logar no apache server e rodar o chefclient
+Digite os comandos a seguir para logar no apache server e rodar o chefclient
 
     $ ssh chef@10.0.2.5
     $ sudo chef-client
